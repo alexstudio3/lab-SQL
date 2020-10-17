@@ -1,3 +1,4 @@
+-- Lab 1
 show tables;
 
 select * from actor;
