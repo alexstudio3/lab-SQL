@@ -32,10 +32,17 @@ from film
 group by rating 
 having average_duration > 120;
 
-select rating  
--- avg(length) over (partition rating, original_language_id) as average_duration
-from film
-group by rating;
+-- List movies and add information of average duration for their rating and original language.
+select title, rating,  avg(length) over ( partition by rating ) as average_length
+from film;
+
+-- Which rentals are longer than expected? (than average)
+select rental_id, datediff(return_date, rental_date)
+from rental
+where datediff(return_date, rental_date) > (select avg(datediff(return_date, rental_date) ) from rental );
+
+
+
 
 
 
